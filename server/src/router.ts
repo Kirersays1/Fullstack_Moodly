@@ -4,7 +4,7 @@ import { handleInputErrors } from './middleware'
 import {createUser, deleteUser, getUserById, getUsers, updateUser} from "./handlers/user";
 import {createMateria, deleteMateria, getMateriaById, getMaterias, updateMateria} from "./handlers/materia";
 import {createMaterial, getMaterials, deleteMaterial, getMaterialById, updateMaterial} from "./handlers/materialDidactico";
-
+import {createCourse, deleteCourse, getCourseById, getCourses, updateCourse} from "./handlers/course";
 
 const router = Router()
 
@@ -123,6 +123,45 @@ router.delete('/materialD/:id',
     param('id').isInt().withMessage('ID no válido'),
     handleInputErrors,
     deleteMaterial
+)
+
+//******************************************** Router Curso*************************************************************
+// GET
+
+// Obtener todos los cursos
+router.get('/course/getAll', getCourses)
+
+// Obten materia especifico
+router.get('/course/:id',
+    param('id').isInt().withMessage('ID no válido'),
+    handleInputErrors,
+    getCourseById
+)
+
+// POST
+router.post('/course/create', createCourse) //Insertar materia
+
+// PUT
+router.put('/course/:id',
+    param('id').isInt().withMessage('ID no válido'),
+    body('id_usuario')
+        .notEmpty().withMessage('ERROR ID_USUARIO VACIO'),
+    body('id_materia')
+        .notEmpty().withMessage('ERROR ID_MATERIA VACIO'),
+    body('id_material_didactico')
+        .notEmpty().withMessage('ERROR ID_MATERIAL DIDACTICO VACIO'),
+
+    handleInputErrors,
+    updateCourse
+)
+
+// DELETE
+
+// Borrar Materia
+router.delete('/course/:id',
+    param('id').isInt().withMessage('ID no válido'),
+    handleInputErrors,
+    deleteCourse
 )
 
 
