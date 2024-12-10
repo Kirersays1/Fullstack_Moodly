@@ -7,6 +7,8 @@ import colors from "colors";
 // Crea usuario mediante HTTP
 export const createUser = async (req: Request, res: Response) => {
     try {
+        console.log(colors.green("Creando usuario"))
+
         //Ningun campo puede estar vacio
         await check('nombre').notEmpty().withMessage('El campo nombre no puede ir vacio').run(req)
         await check('email').notEmpty().withMessage('El campo email no puede ir vacio').run(req)
