@@ -1,4 +1,4 @@
-import { safeParse} from 'valibot';
+import {coerce, safeParse} from 'valibot';
 import axios from 'axios';
 import { DraftUserSchema, User, UserSchema, UsersSchema} from "../types";
 
@@ -70,37 +70,24 @@ export async function deleteUser(id: User['id_usuario']) {
         console.log(error)
     }
 }
-/*
 
-export async function updateUser(data : UserData, id: User['id'] ) {
+
+export async function updateUser(data : UserData, id: User['id_usuario'] ) {
     try {
         const NumberSchema = coerce(number(), Number)
 
         const result = safeParse(UserSchema, {
             id,
-            nombre: data.name,
+            nombre: data.nombre,
             password: parse(NumberSchema, data.price),
             rol: toBoolean(data.availability.toString())
         })
-       
+
         if(result.success) {
-            const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`
+            const url = `${import.meta.env.VITE_API_URL}/api/user/${id}`
             await axios.put(url, result.output)
         }
     } catch (error) {
         console.log(error)
     }
 }
-
-
-
-export async function updateProductAvailability(id: Product['id']) {
-    try {
-        const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`
-        await axios.patch(url)
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-*/

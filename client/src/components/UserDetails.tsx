@@ -41,14 +41,14 @@ export default function UserDetails({user} : UserDetailsProps) {
             <td className="p-3 text-lg text-gray-800 ">
                 <div className="flex gap-2 items-center">
                     <button
-                        onClick={() => navigate(`/user/${user.id_usuario}/editar`)}
+                        onClick={() => navigate(`/user/editar/${user.id_usuario}`)}
                         className='bg-indigo-600 text-white rounded-lg w-full p-2 uppercase font-bold text-xs text-center'
                     >Editar</button>
 
                     <Form
                         className='w-full'
                         method='POST'
-                        action={`user/${user.id_usuario}/eliminar`}
+                        action={`user/eliminar/${user.id_usuario}`}
                         onSubmit={ (e) => {
                             if( !confirm('¿Eliminar?') ) {
                                 e.preventDefault()

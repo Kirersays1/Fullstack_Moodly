@@ -5,6 +5,7 @@ import Users, { loader as usersLoader, action as actionUser} from './views/Users
 import NewProduct, { action as newProductAction } from './views/NewProduct'
 import EditProduct, { loader as editProductLoader, action as editProductAction } from './views/EditProduct'
 import { action as deleteProductAction } from './components/ProductDetails'
+import EditUser, { loader as editUserLoader, action as editUserAction } from './views/EditUser'
 import NewUser,{action as newUserAction} from "./views/NewUser.tsx";
 import {action as deleteUser} from "./components/UserDetails.tsx";
 
@@ -24,8 +25,8 @@ export const router = createBrowserRouter([
                 action: newUserAction
             },
             {
-                path:'productos/:id/editar', // ROA Pattern - Resource-oriented design
-                element: <EditProduct />,
+                path:'user/editar/:id',
+                element: <EditUser />,
                 loader: editProductLoader,
                 action: editProductAction
             },
