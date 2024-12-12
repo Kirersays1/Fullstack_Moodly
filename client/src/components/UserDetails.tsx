@@ -1,4 +1,4 @@
-import { useNavigate, Form, ActionFunctionArgs, redirect, useFetcher } from 'react-router-dom'
+import { useNavigate, Form, ActionFunctionArgs, redirect } from 'react-router-dom'
 import { User } from "../types"
 import {deleteUser} from "../services/UserService.ts";
 
@@ -15,7 +15,6 @@ export async function action({params} : ActionFunctionArgs) {
 
 export default function UserDetails({user} : UserDetailsProps) {
 
-    const fetcher = useFetcher()
     const navigate = useNavigate()
 
     return (
@@ -27,16 +26,7 @@ export default function UserDetails({user} : UserDetailsProps) {
                 {user.email}
             </td>
             <td className="p-3 text-lg text-gray-800">
-                <fetcher.Form method='POST'>
-                    <button
-                        type='submit'
-                        name='id'
-                        value={user.id_usuario}
-                        className={` 'text-black' : 'text-red-600'} rounded-lg p-2 text-xs uppercase font-bold w-full border border-black-100 hover:cursor-pointer`}
-                    >
-                    </button>
-                </fetcher.Form>
-                
+                {user.rol}
             </td>
             <td className="p-3 text-lg text-gray-800 ">
                 <div className="flex gap-2 items-center">

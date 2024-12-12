@@ -1,7 +1,8 @@
-import { User } from "../types"
+import { User,UserEdit } from "../types"
 
 type UserFormProps = {
     user?: User
+    userEdit?: UserEdit
 }
 
 export default function UserForm({user} : UserFormProps) {
@@ -74,4 +75,60 @@ export default function UserForm({user} : UserFormProps) {
 
       </>
   )
+}
+
+
+export function EditUserForm({userEdit} : UserFormProps) {
+    return (
+        <>
+            {/* Nombre */}
+            <div className="mb-4">
+                <label
+                    className="text-gray-800"
+                    htmlFor="nombre"
+                >Nombre:</label>
+                <input
+                    id="nombre"
+                    type="text"
+                    className="mt-2 block w-full p-3 bg-gray-50"
+                    placeholder="Nombre del Usuario"
+                    name="nombre"
+                    defaultValue={userEdit?.nombre}
+                />
+            </div>
+
+            {/* Password */}
+            <div className="mb-4">
+                <label
+                    className="text-gray-800"
+                    htmlFor="password"
+                >Contraseña:</label>
+                <input
+                    id="password"
+                    type="password"
+                    className="mt-2 block w-full p-3 bg-gray-50"
+                    placeholder="Contraseña"
+                    name="password"
+                    defaultValue={userEdit?.password}
+                />
+            </div>
+
+            {/* Rol */}
+            <div className="mb-4">
+                <label
+                    className="text-gray-800"
+                    htmlFor="rol"
+                >Rol:</label>
+                <input
+                    id="rol"
+                    type="text"
+                    className="mt-2 block w-full p-3 bg-gray-50"
+                    placeholder="Rol del usuario"
+                    name="rol"
+                    defaultValue={userEdit?.rol}
+                />
+            </div>
+
+        </>
+    )
 }

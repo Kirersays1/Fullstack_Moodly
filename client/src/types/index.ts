@@ -20,6 +20,12 @@ export const UserSchema = object({
     rol : string()
 })
 
+export const UserEditSchema = object({
+    nombre : string(),
+    password : string(),
+    rol : string()
+})
+
 export const DraftUserSchema = object({
     nombre: string(),
     email: string(),
@@ -32,3 +38,4 @@ export type Product = Output<typeof ProductSchema>
 
 export const UsersSchema = array(UserSchema)
 export type User = Output<typeof UserSchema>
+export type UserEdit = Output<typeof UserEditSchema>
