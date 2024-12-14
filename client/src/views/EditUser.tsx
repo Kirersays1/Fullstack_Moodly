@@ -31,6 +31,10 @@ export async function action({request, params} : ActionFunctionArgs) {
     }
 
 }
+const userOptions = [
+    { name: 'I', value: 'I'},
+    { name: 'A', value: 'A'}
+]
 
 export default function EditUser() {
     const user = useLoaderData() as UserEdit
@@ -51,13 +55,30 @@ export default function EditUser() {
             {error && <ErrorMessage>{error}</ErrorMessage>}
 
             <Form
-                className="mt-10"  
+                className="mt-10"
                 method='POST'
             >
-            
+
                 <EditUserForm
                     userEdit={user}
                 />
+
+                <div className="mb-4">
+                    <label
+                        className="text-gray-800"
+                        htmlFor="rol"
+                    >Rol:</label>
+                    <select
+                        id="rol"
+                        className="mt-2 block w-full p-3 bg-gray-50"
+                        name="rol"
+                        defaultValue={user?.rol.toString()}
+                    >
+                        {userOptions.map(option => (
+                            <option key={option.name} value={option.value.toString()}>{option.name}</option>
+                        ))}
+                    </select>
+                </div>
 
                 <input
                     type="submit"
@@ -65,7 +86,7 @@ export default function EditUser() {
                     value="Guardar Cambios"
                 />
             </Form>
-        
+
         </>
     )
 }

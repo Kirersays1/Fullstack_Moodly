@@ -1,6 +1,6 @@
 import {safeParse} from 'valibot';
 import axios from 'axios';
-import { DraftUserSchema, User, UserSchema, UsersSchema} from "../types";
+import {DraftUserSchema, User, UserEditSchema, UserSchema, UsersSchema} from "../types";
 
 type UserData = {
     [k: string]: FormDataEntryValue;
@@ -74,11 +74,12 @@ export async function deleteUser(id: User['id_usuario']) {
 
 export async function updateUser(data : UserData, id: User['id_usuario'] ) {
     try {
-        const result = safeParse(UserSchema, {
+        const result = safeParse(UserEditSchema, {
             nombre: data.nombre,
             password: data.password,
             rol: data.rol,
         })
+        console.log(result)
 
         if(result.success) {
             const url = `${import.meta.env.VITE_API_URL}/api/user/${id}`
