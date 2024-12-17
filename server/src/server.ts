@@ -23,7 +23,7 @@ const server = express()
 //Permitir conexiones
 const corsOptions = {
     origin: function(origin,callback) {
-        if(origin==process.env.FRONTEND_URL){
+        if(origin==process.env.FRONTEND_URL || !origin){
             callback(null,true)
         }else{
             callback(new Error('ACCESO DENEGADO'),false)

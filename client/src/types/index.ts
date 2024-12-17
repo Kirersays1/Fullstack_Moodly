@@ -1,4 +1,4 @@
-import { object, string, number, boolean, Output, array } from 'valibot'
+import { object, string, number, boolean,optional, Output, array } from 'valibot'
 
 export const DraftProductSchema = object({
     name: string(),
@@ -15,9 +15,9 @@ export const ProductSchema = object({
 export const UserSchema = object({
     id_usuario : number(),
     nombre : string(),
-    email : string(),
-    password : string(),
-    rol : string()
+    email :optional(string()) ,
+    password : optional(string()),
+    rol : optional(string())
 })
 
 export const UserEditSchema = object({
@@ -33,11 +33,25 @@ export const DraftUserSchema = object({
     rol : string()
 })
 
+export const MateriaSchema = object({
+    id_materia: number(),
+    titulo: string(),
+});
+
+export const MaterialSchema = object({
+    id_material_didactico: number(),
+    tipo: string(),
+    url : optional(string()),
+});
+
 export const CourseSchema = object({
     id_curso : number(),
     id_usuario : number(),
     id_materia : number(),
-    id_material_didactico : number()
+    id_material_didactico : number(),
+    usuario: optional(UserSchema), // Información del usuario
+    materia: optional(MateriaSchema), // Información de la materia
+    materialDidactico: optional(MaterialSchema), // Informacion del material
 })
 
 

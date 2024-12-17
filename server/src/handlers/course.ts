@@ -1,101 +1,115 @@
-import { Request, Response } from 'express'
-import Course from '../models/Course.model'
-import {check, validationResult} from 'express-validator'
-import colors from "colors";
+import { Request, Response } from 'express';
+import Course from '../models/Course.model';
+import User from '../models/User.model';
+import Materia from '../models/Materia.model';
+import Material from '../models/Material.model';
+import { check, validationResult } from 'express-validator';
+import colors from 'colors';
 
-
-// Crea curso mediante HTTP
+// Crear curso
 export const createCourse = async (req: Request, res: Response) => {
     try {
-        //Ningun campo puede estar vacio
-        await check('id_usuario').notEmpty().withMessage('El id_usuario no puede ir vacio').run(req)
-        await check('id_materia').notEmpty().withMessage('El id_materia no puede ir vacio').run(req)
-        await check('id_material_didactico').notEmpty().withMessage('El id_material_didactico no puede ir vacio').run(req)
+        // Validaciones
+        await check('id_usuario').notEmpty().withMessage('El id_usuario no puede ir vacío').run(req);
+        await check('id_materia').notEmpty().withMessage('El id_materia no puede ir vacío').run(req);
+        await check('id_material_didactico').notEmpty().withMessage('El id_material_didactico no puede ir vacío').run(req);
 
-        let errors = validationResult(req)
-
+        const errors = validationResult(req);
         if (!errors.isEmpty()) {
-
-            //Mostrar en consola que hubo un error
-            console.log(colors.red('ERROR AL REGISTRAR A CURSO'))
-
-            //Regresar peticion con array de errores (error 400)
-            return res.status(400).json({errors: errors.array()})
+            console.log(colors.red('ERROR AL REGISTRAR A CURSO'));
+            return res.status(400).json({ errors: errors.array() });
         }
 
-        //Enviar datos de usuario a base de datos
-        const course = await Course.create(req.body)
-        res.json({data: course})
+        // Crear curso en la base de datos
+        const course = await Course.create(req.body);
+        res.json({ data: course });
     } catch (error) {
-        console.log(colors.red(error))
+        console.log(colors.red(error));
+        res.status(500).json({ error: 'Error al crear el curso' });
     }
-}
+};
 
-// Obten todos los cursos
+// Obtener todos los cursos con datos relacionados
 export const getCourses = async (req: Request, res: Response) => {
     try {
-        console.log(colors.green("Solicitaron a todos los usuarios"))
+        console.log(colors.green('Solicitaron todos los cursos'));
 
         const courses = await Course.findAll({
-            order: [
-                ['id_curso', 'DESC']
-            ]
-        })
-        res.json({data: courses})
-    } catch (error) {
-        console.log(error)
-    }
-}
+            include: [
+                { model: User, attributes: ['nombre', 'email'] },
+                { model: Materia, attributes: ['titulo'] },
+                { model: Material, attributes: ['tipo', 'url'] }
+            ],
+            order: [['id_curso', 'DESC']],
+        });
 
-// Solicita curso por id
+        res.json({ data: courses });
+    } catch (error) {
+        console.log(colors.red(error));
+        res.status(500).json({ error: 'Error al obtener los cursos' });
+    }
+};
+
+// Obtener curso por ID con datos relacionados
 export const getCourseById = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params
-        const courseId = await Course.findByPk(id)
+        const { id } = req.params;
 
-        console.log(colors.green("Solicitaron al curso:") + id)
+        const course = await Course.findByPk(id, {
+            include: [
+                { model: User, attributes: ['nombre', 'email'] },
+                { model: Materia, attributes: ['titulo'] },
+                { model: Material, attributes: ['tipo', 'url'] }
+            ],
+        });
 
-        if(!courseId) {
-            return res.status(404).json({
-                error: 'Curso no encontrado'
-            })
+        console.log(colors.green('Solicitaron al curso: ') + id);
+
+        if (!course) {
+            return res.status(404).json({ error: 'Curso no encontrado' });
         }
 
-        res.json({data: courseId})
+        res.json({ data: course });
     } catch (error) {
-        console.log(error)
+        console.log(colors.red(error));
+        res.status(500).json({ error: 'Error al obtener el curso' });
     }
-}
+};
 
 // Actualizar curso
 export const updateCourse = async (req: Request, res: Response) => {
-    const { id } = req.params
-    const courseID = await Course.findByPk(id)
+    try {
+        const { id } = req.params;
 
-    console.log(colors.blue("Actualice CURSO con el id: " + id))
+        const course = await Course.findByPk(id);
+        console.log(colors.blue('Actualicé CURSO con el id: ' + id));
 
-    if(!courseID) {
-        return res.status(404).json({
-            error: 'Curso no encontrado'
-        })
+        if (!course) {
+            return res.status(404).json({ error: 'Curso no encontrado' });
+        }
+
+        await course.update(req.body);
+        res.json({ data: course });
+    } catch (error) {
+        console.log(colors.red(error));
+        res.status(500).json({ error: 'Error al actualizar el curso' });
     }
-    
-    // Actualizar
-    await courseID.update(req.body)
-    await courseID.save()
-    res.json({data: courseID})
-}
+};
 
 // Eliminar curso
 export const deleteCourse = async (req: Request, res: Response) => {
-    const { id } = req.params
-    const course = await Course.findByPk(id)
-    if(!course) {
-        return res.status(404).json({
-            error: 'Curso No Encontrado'
-        })
+    try {
+        const { id } = req.params;
+
+        const course = await Course.findByPk(id);
+        if (!course) {
+            return res.status(404).json({ error: 'Curso no encontrado' });
+        }
+
+        await course.destroy();
+        res.json({ data: 'Curso eliminado' });
+    } catch (error) {
+        console.log(colors.red(error));
+        res.status(500).json({ error: 'Error al eliminar el curso' });
     }
-    
-    await course.destroy()
-    res.json({data: 'Curso Eliminado'})
-}
+};

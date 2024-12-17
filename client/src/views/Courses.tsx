@@ -1,57 +1,68 @@
-import { ActionFunctionArgs, Link, useLoaderData} from 'react-router-dom'
+import { ActionFunctionArgs, Link, useLoaderData } from 'react-router-dom';
 import { Course } from '../types';
-import {getUserById, getUsers} from "../services/UserService.ts";
-import UserDetails from "../components/UserDetails.tsx";
+import { getCourses } from "../services/CourseService.ts";
+import CourseDetails from "../components/CourseDetails.tsx";
 
 export async function loader() {
-  const users = await getUsers()
-  return users
+    try {
+        const courses = await getCourses(); // Llama a la API para obtener los cursos
+        console.log(courses);
+        return courses || []; // Devuelve un arreglo vacío si no hay datos
+    } catch (error) {
+        console.error("Error cargando cursos:", error);
+        return []; // Devuelve un arreglo vacío en caso de error
+    }
 }
 
-export async function action({request} : ActionFunctionArgs) {
-    const data = Object.fromEntries(await request.formData())
-    await getUserById(+data.id)
-    return {}
+export async function action({ request }: ActionFunctionArgs) {
+    const data = Object.fromEntries(await request.formData());
+    await getCourses();
+    return {};
 }
 
-export default function Users() {
+export default function Courses() {
+    const data = useLoaderData() as Course[]; // Los datos son un arreglo de cursos
 
-  const data = useLoaderData() as Course[]
+    if (!data || data.length === 0) {
+        return (
+            <p className="text-center text-gray-500">
+                No hay cursos registrados.
+            </p>
+        );
+    }
 
-  return (
-    <>
-        <div className='flex justify-between'>
-            <h2 className='text-4xl font-black text-slate-500'>Cursos</h2>
-            <Link
-                to="course/new"
-                className='rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500'
-            >
-                Registrar a curso
-            </Link>
-        </div>
-  
+    return (
+        <>
+            <div className="flex justify-between">
+                <h2 className="text-4xl font-black text-slate-500">Cursos</h2>
+                <Link
+                    to="course/new"
+                    className="rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+                >
+                    Registrar a curso
+                </Link>
+            </div>
 
-        <div className="p-2">
-            <table className="w-full mt-5 table-auto">
-                <thead className="bg-slate-800 text-white">
-                <tr>
-                    <th className="p-2">Nombre del usuario</th>
-                    <th className="p-2">Materia</th>
-                    <th className="p-2">Material didactico</th>
-                    <th className="p-2">Acciones</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                {data.map(user => (
-                      <UserDetails
-                          key={user.id_usuario}
-                          user={user}
-                      />
-                  ))}
-                </tbody>
-            </table>
-        </div>
-    </>
-  )
+            <div className="p-2">
+                <table className="w-full mt-5 table-auto">
+                    <thead className="bg-slate-800 text-white">
+                    <tr>
+                        <th className="p-2">Nombre del usuario</th>
+                        <th className="p-2">Materia</th>
+                        <th className="p-2">Material didáctico</th>
+                        <th className="p-2">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {data.map(course => (
+                        <CourseDetails
+                            key={course.id_curso}
+                            course={course} // Pasar datos completos del curso
+                        />
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        </>
+    );
 }
