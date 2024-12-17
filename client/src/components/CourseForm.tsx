@@ -1,115 +1,60 @@
-import { User,UserEdit } from "../types"
+import { Course } from "../types"
 
-type UserFormProps = {
-    user?: User
-    userEdit?: UserEdit
+type CourseFormProps = {
+    course?: Course
 }
-export default function UserForm({user} : UserFormProps) {
+export default function UserForm({course} : CourseFormProps) {
   return (
       <>
-          {/* Nombre */}
+          {/* Usuario */}
           <div className="mb-4">
               <label
                   className="text-gray-800"
                   htmlFor="nombre"
-              >Nombre:</label>
+              >Usuario:</label>
               <input
                   id="nombre"
                   type="text"
                   className="mt-2 block w-full p-3 bg-gray-50"
                   placeholder="Nombre del Usuario"
                   name="nombre"
-                  defaultValue={user?.nombre}
+                  defaultValue={course?.usuario_nombre}
               />
           </div>
 
-          {/* Email */}
-          <div className="mb-4">
-              <label
-                  className="text-gray-800"
-                  htmlFor="email"
-              >Email:</label>
-              <input
-                  id="email"
-                  type="email"
-                  className="mt-2 block w-full p-3 bg-gray-50"
-                  placeholder="Email del usuario"
-                  name="email"
-                  defaultValue={user?.email}
-              />
-          </div>
-
-          {/* Password */}
+          {/* Materia */}
           <div className="mb-4">
               <label
                   className="text-gray-800"
                   htmlFor="password"
-              >Contraseña:</label>
+              >Materia:</label>
               <input
                   id="password"
-                  type="password"
+                  type="text"
                   className="mt-2 block w-full p-3 bg-gray-50"
-                  placeholder="Contraseña"
+                  placeholder="Materia"
                   name="password"
-                  defaultValue={user?.password}
+                  defaultValue={course?.materia_titulo}
               />
           </div>
 
-          {/* Rol */}
+          {/* Material Didactico */}
           <div className="mb-4">
               <label
                   className="text-gray-800"
                   htmlFor="rol"
-              >Rol:</label>
+              >Material didactico:</label>
               <input
                   id="rol"
                   type="text"
                   className="mt-2 block w-full p-3 bg-gray-50"
                   placeholder="Rol del usuario"
                   name="rol"
-                  defaultValue={user?.rol}
+                  defaultValue={course?.usuario_email}
               />
           </div>
 
 
       </>
   )
-}
-
-export function EditUserForm({userEdit} : UserFormProps) {
-    return (
-        <>
-            {/* Nombre */}
-            <div className="mb-4">
-                <label
-                    className="text-gray-800"
-                    htmlFor="nombre"
-                >Nombre:</label>
-                <input
-                    id="nombre"
-                    type="text"
-                    className="mt-2 block w-full p-3 bg-gray-50"
-                    placeholder="Nombre del Usuario"
-                    name="nombre"
-                    defaultValue={userEdit?.nombre}
-                />
-            </div>
-
-            {/* Password */}
-            <div className="mb-4">
-                <label
-                    className="text-gray-800"
-                    htmlFor="password"
-                >Contraseña:</label>
-                <input
-                    id="password"
-                    type="password"
-                    className="mt-2 block w-full p-3 bg-gray-50"
-                    placeholder="Contraseña"
-                    name="password"
-                    defaultValue={userEdit?.password}
-                />
-            </div>
-        </>
-    )
 }

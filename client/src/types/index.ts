@@ -45,15 +45,16 @@ export const MaterialSchema = object({
 });
 
 export const CourseSchema = object({
-    id_curso : number(),
-    id_usuario : number(),
-    id_materia : number(),
-    id_material_didactico : number(),
-    usuario: optional(UserSchema), // Información del usuario
-    materia: optional(MateriaSchema), // Información de la materia
-    materialDidactico: optional(MaterialSchema), // Informacion del material
-})
-
+    id_curso: number(),
+    id_usuario: number(),
+    id_materia: number(),
+    id_material_didactico: number(),
+    usuario_nombre: string(),
+    usuario_email: string(),
+    materia_titulo: string(),
+    material_tipo: string(),
+    material_url: string(),
+});
 
 export const ProductsSchema = array(ProductSchema)
 export type Product = Output<typeof ProductSchema>

@@ -33,16 +33,22 @@ export async function getCourses() {
         const url = `${import.meta.env.VITE_API_URL}/api/course/getAll`;
         const { data } = await axios(url);
 
-        const result = safeParse(CoursesSchema, data);
+        const result = safeParse(CoursesSchema, data.data);
+
         if (result.success) {
+            console.log("Cursos validados correctamente:", result.output);
             return result.output;
         } else {
-            throw new Error('Error al obtener los cursos');
+            console.error("Errores de validación detallados:", JSON.stringify(result.issues, null, 2));
+            throw new Error('Error al validar los cursos: Datos no válidos');
         }
     } catch (error) {
-        console.log(error);
+        console.error("Error en getCourses:", error);
+        throw error;
     }
 }
+
+
 
 // Obtener un curso por ID
 export async function getCourseById(id: Course['id_curso']) {

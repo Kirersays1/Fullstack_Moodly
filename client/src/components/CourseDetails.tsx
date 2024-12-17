@@ -19,20 +19,22 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
     return (
         <tr className="border-b">
             <td className="p-3 text-lg text-gray-800">
-                {course.usuario?.nombre || 'Usuario no asignado'}
+                {course.usuario_nombre|| 'Usuario no asignado'}
             </td>
             <td className="p-3 text-lg text-gray-800">
-                {course.materia?.titulo || 'Materia no asignada'}
+                {course.materia_titulo || 'Materia no asignada'}
             </td>
             <td className="p-3 text-lg text-gray-800">
-                {course.materialDidactico?.tipo || 'Material no asignado'}
+                {course.material_tipo|| 'Material no asignado'}
             </td>
             <td className="p-3 text-lg text-gray-800">
                 <div className="flex gap-2 items-center">
                     <button
                         onClick={() => navigate(`/course/edit/${course.id_curso}`)}
                         className="bg-indigo-600 text-white rounded-lg w-full p-2 uppercase font-bold text-xs text-center"
-                    >Editar</button>
+                    >
+                        Editar
+                    </button>
 
                     <Form
                         className="w-full"

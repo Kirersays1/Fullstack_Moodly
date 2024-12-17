@@ -5,6 +5,7 @@ import EditUser, { loader as editUserLoader, action as editUserAction } from './
 import NewUser,{action as newUserAction} from "./views/NewUser.tsx";
 import Courses, { loader as coursesLoader}from "./views/Courses.tsx";
 import {action as deleteUser} from "./components/UserDetails.tsx";
+import NewCourse,{action as newCourseAction} from "./views/NewCourse.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -37,6 +38,11 @@ export const router = createBrowserRouter([
                 path:'course/',
                 element: <Courses/>,
                 loader: coursesLoader
+            },
+            {
+                path:'course/new',
+                element: <NewCourse/>,
+                action: newCourseAction
             }
         ],
     }

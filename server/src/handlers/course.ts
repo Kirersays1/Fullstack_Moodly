@@ -36,14 +36,27 @@ export const getCourses = async (req: Request, res: Response) => {
 
         const courses = await Course.findAll({
             include: [
-                { model: User, attributes: ['nombre', 'email'] },
-                { model: Materia, attributes: ['titulo'] },
-                { model: Material, attributes: ['tipo', 'url'] }
+                { model: User, attributes: ['id_usuario', 'nombre', 'email'] },
+                { model: Materia, attributes: ['id_materia', 'titulo'] },
+                { model: Material, attributes: ['id_material_didactico', 'tipo', 'url'] }
             ],
             order: [['id_curso', 'DESC']],
         });
 
-        res.json({ data: courses });
+        const flatCourses = courses.map(course => ({
+            id_curso: course.id_curso,
+            id_usuario: course.usuario?.id_usuario,
+            id_materia: course.materia?.id_materia,
+            id_material_didactico: course.materialDidactico?.id_material_didactico,
+            fecha_creacion: course.fecha_creacion,
+            usuario_nombre: course.usuario?.nombre,
+            usuario_email: course.usuario?.email,
+            materia_titulo: course.materia?.titulo,
+            material_tipo: course.materialDidactico?.tipo,
+            material_url: course.materialDidactico?.url
+        }));
+
+        res.json({ data: flatCourses });
     } catch (error) {
         console.log(colors.red(error));
         res.status(500).json({ error: 'Error al obtener los cursos' });
@@ -57,9 +70,9 @@ export const getCourseById = async (req: Request, res: Response) => {
 
         const course = await Course.findByPk(id, {
             include: [
-                { model: User, attributes: ['nombre', 'email'] },
-                { model: Materia, attributes: ['titulo'] },
-                { model: Material, attributes: ['tipo', 'url'] }
+                { model: User, attributes: ['id_usuario', 'nombre', 'email'] },
+                { model: Materia, attributes: ['id_materia', 'titulo'] },
+                { model: Material, attributes: ['id_material_didactico', 'tipo', 'url'] }
             ],
         });
 
@@ -69,7 +82,20 @@ export const getCourseById = async (req: Request, res: Response) => {
             return res.status(404).json({ error: 'Curso no encontrado' });
         }
 
-        res.json({ data: course });
+        const flatCourse = {
+            id_curso: course.id_curso,
+            id_usuario: course.usuario?.id_usuario,
+            id_materia: course.materia?.id_materia,
+            id_material_didactico: course.materialDidactico?.id_material_didactico,
+            fecha_creacion: course.fecha_creacion,
+            usuario_nombre: course.usuario?.nombre,
+            usuario_email: course.usuario?.email,
+            materia_titulo: course.materia?.titulo,
+            material_tipo: course.materialDidactico?.tipo,
+            material_url: course.materialDidactico?.url
+        };
+
+        res.json({ data: flatCourse });
     } catch (error) {
         console.log(colors.red(error));
         res.status(500).json({ error: 'Error al obtener el curso' });
