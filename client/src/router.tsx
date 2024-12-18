@@ -6,6 +6,7 @@ import NewUser,{action as newUserAction} from "./views/NewUser.tsx";
 import Courses, { loader as coursesLoader}from "./views/Courses.tsx";
 import {action as deleteUser} from "./components/UserDetails.tsx";
 import NewCourse,{action as newCourseAction} from "./views/NewCourse.tsx";
+import {action as deleteCourse} from "./components/CourseDetails.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -40,10 +41,14 @@ export const router = createBrowserRouter([
                 loader: coursesLoader
             },
             {
-                path:'course/new',
+                path:'newCourse',
                 element: <NewCourse/>,
                 action: newCourseAction
-            }
+            },
+            {
+                path:'course/eliminar/:id',
+                action: deleteCourse
+            },
         ],
     }
 ])

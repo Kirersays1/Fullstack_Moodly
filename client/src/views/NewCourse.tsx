@@ -15,10 +15,10 @@ export async function action({request} : ActionFunctionArgs) {
     }
     await addCourse(data)
     
-    return redirect('/')
+    return redirect('/course')
 }
 
-export default function NewUser() {
+export default function NewCourse() {
     const error = useActionData() as string
 
     return (
@@ -26,7 +26,7 @@ export default function NewUser() {
             <div className='flex justify-between'>
                 <h2 className='text-4xl font-black text-slate-500'>Registrar Curso</h2>
                 <Link
-                    to="/"
+                    to="/course"
                     className='rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500'
                 >
                     Volver a Cursos

@@ -28,8 +28,18 @@ export default function Users() {
             >
                 Agregar Usuario
             </Link>
+
+
+            <Link
+                to="/course"
+                className='rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500'
+            >
+                Ir a cursos
+            </Link>
         </div>
-  
+
+
+
 
         <div className="p-2">
             <table className="w-full mt-5 table-auto">

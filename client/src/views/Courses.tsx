@@ -36,7 +36,7 @@ export default function Courses() {
             <div className="flex justify-between">
                 <h2 className="text-4xl font-black text-slate-500">Cursos</h2>
                 <Link
-                    to="course/new"
+                    to="/newCourse"
                     className="rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
                 >
                     Registrar a curso

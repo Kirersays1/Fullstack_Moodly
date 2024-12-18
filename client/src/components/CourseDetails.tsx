@@ -9,7 +9,7 @@ type CourseDetailsProps = {
 export async function action({ params }: ActionFunctionArgs) {
     if (params.id !== undefined) {
         await deleteCourse(+params.id); // Llama al servicio para eliminar el curso
-        return redirect('/'); // Redirige después de eliminar
+        return redirect('/course'); // Redirige después de eliminar
     }
 }
 

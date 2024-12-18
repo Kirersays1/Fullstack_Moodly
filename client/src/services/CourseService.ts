@@ -1,6 +1,6 @@
 import { safeParse } from 'valibot';
 import axios from 'axios';
-import { CourseSchema, CoursesSchema, Course } from '../types';
+import { CourseSchema, CoursesSchema, Course,DraftCourseSchema } from '../types';
 
 type CourseData = {
     [k: string]: FormDataEntryValue;
@@ -9,17 +9,20 @@ type CourseData = {
 // Crear un nuevo curso
 export async function addCourse(data: CourseData) {
     try {
-        const result = safeParse(CourseSchema, {
-            id_curso: data.id_curso,
+        const result = safeParse(DraftCourseSchema, {
             id_usuario: data.id_usuario,
             id_materia: data.id_materia,
             id_material_didactico: data.id_material_didactico,
         });
 
         if (result.success) {
-            const url = `${import.meta.env.VITE_API_URL}/api/course/create`;
-            await axios.post(url, result.output);
-        } else {
+            const url = `${import.meta.env.VITE_API_URL}/api/course/create`
+            await axios.post(url, {
+                id_usuario: result.output.id_usuario,
+                id_materia: result.output.id_materia,
+                id_material_didactico: result.output.id_material_didactico,
+            })
+        }else {
             throw new Error('Datos no válidos');
         }
     } catch (error) {

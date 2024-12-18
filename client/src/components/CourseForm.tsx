@@ -3,22 +3,22 @@ import { Course } from "../types"
 type CourseFormProps = {
     course?: Course
 }
-export default function UserForm({course} : CourseFormProps) {
+export default function CourseForm({course} : CourseFormProps) {
   return (
       <>
           {/* Usuario */}
           <div className="mb-4">
               <label
                   className="text-gray-800"
-                  htmlFor="nombre"
+                  htmlFor="id_usuario"
               >Usuario:</label>
               <input
-                  id="nombre"
+                  id="id_usuario"
                   type="text"
                   className="mt-2 block w-full p-3 bg-gray-50"
                   placeholder="Nombre del Usuario"
-                  name="nombre"
-                  defaultValue={course?.usuario_nombre}
+                  name="id_usuario"
+                  defaultValue={course?.id_usuario}
               />
           </div>
 
@@ -26,15 +26,15 @@ export default function UserForm({course} : CourseFormProps) {
           <div className="mb-4">
               <label
                   className="text-gray-800"
-                  htmlFor="password"
+                  htmlFor="id_materia"
               >Materia:</label>
               <input
-                  id="password"
+                  id="id_materia"
                   type="text"
                   className="mt-2 block w-full p-3 bg-gray-50"
                   placeholder="Materia"
-                  name="password"
-                  defaultValue={course?.materia_titulo}
+                  name="id_materia"
+                  defaultValue={course?.id_materia}
               />
           </div>
 
@@ -42,15 +42,15 @@ export default function UserForm({course} : CourseFormProps) {
           <div className="mb-4">
               <label
                   className="text-gray-800"
-                  htmlFor="rol"
+                  htmlFor="id_material_didactico"
               >Material didactico:</label>
               <input
-                  id="rol"
+                  id="id_material_didactico"
                   type="text"
                   className="mt-2 block w-full p-3 bg-gray-50"
-                  placeholder="Rol del usuario"
-                  name="rol"
-                  defaultValue={course?.usuario_email}
+                  placeholder="Material didactico"
+                  name="id_material_didactico"
+                  defaultValue={course?.id_material_didactico}
               />
           </div>
 
