@@ -8,7 +8,8 @@ import NewUser,{action as newUserAction} from "./views/User/NewUser.tsx";
 import {action as deleteUser} from "./components/User/UserDetails.tsx";
 
 import Courses, { loader as coursesLoader}from "./views/Course/Courses.tsx";
-import NewCourse,{action as newCourseAction} from "./views/Course/NewCourse.tsx";
+import NewCourse,{action as newCourseAction } from "./views/Course/NewCourse.tsx";
+import EditCourse, {action as editCourseAction, loader as editCourseLoader} from "./views/Course/EditCourse.tsx";
 import {action as deleteCourse} from "./components/Course/CourseDetails.tsx";
 
 import Materia,{loader as MateriaLoader} from "./views/Materia/Materia.tsx";
@@ -57,8 +58,15 @@ export const router = createBrowserRouter([
             {
                 path:'newCourse',
                 element: <NewCourse/>,
-                action: newCourseAction
+                action: newCourseAction,
             },
+            {
+                path:'course/editar/:id',
+                element: <EditCourse/>,
+                loader: editCourseLoader,
+                action: editCourseAction,
+            },
+
             {
                 path:'course/eliminar/:id',
                 action: deleteCourse

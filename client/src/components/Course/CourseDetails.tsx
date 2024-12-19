@@ -30,7 +30,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
             <td className="p-3 text-lg text-gray-800">
                 <div className="flex gap-2 items-center">
                     <button
-                        onClick={() => navigate(`/course/edit/${course.id_curso}`)}
+                        onClick={() => navigate(`/course/editar/${course.id_curso}`)}
                         className="bg-indigo-600 text-white rounded-lg w-full p-2 uppercase font-bold text-xs text-center"
                     >
                         Editar
@@ -39,7 +39,7 @@ export default function CourseDetails({ course }: CourseDetailsProps) {
                     <Form
                         className="w-full"
                         method="POST"
-                        action={`/course/delete/${course.id_curso}`}
+                        action={`/course/eliminar/${course.id_curso}`}
                         onSubmit={(e) => {
                             if (!confirm('¿Eliminar este curso?')) {
                                 e.preventDefault();

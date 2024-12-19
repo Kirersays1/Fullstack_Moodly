@@ -83,8 +83,7 @@ export async function deleteCourse(id: Course['id_curso']) {
 // Actualizar un curso
 export async function updateCourse(data: CourseData, id: Course['id_curso']) {
     try {
-        const result = safeParse(CourseSchema, {
-            id_curso: id,
+        const result = safeParse(DraftCourseSchema, {
             id_usuario: data.id_usuario,
             id_materia: data.id_materia,
             id_material_didactico: data.id_material_didactico,

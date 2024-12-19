@@ -3,15 +3,7 @@ import { Material } from "../../types"
 type UserFormProps = {
     user?: Material
 }
-const userOptions = [
-    { name: 'Video', value: 'Video'},
-    { name: 'PDF', value: 'PDF'},
-    { name: 'Programa', value: 'Programa'},
-    { name: 'Powerpoint', value: 'Powerpoint'},
-    { name: 'Office', value: 'Office'},
-    { name: 'Otro', value: 'Otro'},
 
-]
 
 export default function MaterialesForm({user} : UserFormProps) {
   return (
@@ -19,19 +11,18 @@ export default function MaterialesForm({user} : UserFormProps) {
           <div className="mb-4">
               <label
                   className="text-gray-800"
-                  htmlFor="tipo"
-              >Tipo:</label>
-              <select
+                  htmlFor="nombre"
+              >Nombre del material didactico:</label>
+              <input
                   id="tipo"
+                  type="text"
                   className="mt-2 block w-full p-3 bg-gray-50"
+                  placeholder="Nombre del Material"
                   name="tipo"
                   defaultValue={user?.tipo}
-              >
-                  {userOptions.map(option => (
-                      <option key={option.name} value={option.value.toString()}>{option.name}</option>
-                  ))}
-              </select>
+              />
           </div>
+
 
           {/* Email */}
           <div className="mb-4">

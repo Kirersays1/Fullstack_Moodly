@@ -35,15 +35,15 @@ export const MaterialSchema = object({
 });
 
 export const CourseSchema = object({
-    id_curso: number(),
-    id_usuario: number(),
-    id_materia: number(),
-    id_material_didactico: number(),
-    usuario_nombre: string(),
-    usuario_email: string(),
-    materia_titulo: string(),
-    material_tipo: string(),
-    material_url: string(),
+    id_curso: optional(number()),
+    id_usuario: optional(number()),
+    id_materia: optional(number()),
+    id_material_didactico: optional(number()),
+    usuario_nombre: optional(string()),
+    usuario_email: optional(string()),
+    materia_titulo: optional(string()),
+    material_tipo: optional(string()),
+    material_url: optional(string()),
 });
 
 export const DraftCourseSchema = object({

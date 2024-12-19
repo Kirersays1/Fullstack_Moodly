@@ -1,12 +1,12 @@
 import { Link, Form, useActionData, ActionFunctionArgs, redirect, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
 import ErrorMessage from '../../components/ErrorMessage.tsx'
-import { getUserById, updateUser } from '../../services/UserService.ts'
-import {UserEdit} from '../../types'
-import {EditUserForm} from '../../components/User/UserForm.tsx'
+import {Course} from '../../types'
+import CourseForm from "../../components/Course/CourseForm.tsx";
+import {getCourseById,updateCourse} from "../../services/CourseService.ts";
 
 export async function loader({params} : LoaderFunctionArgs) {
     if(params.id !== undefined) {
-        const user = await getUserById(+params.id)
+        const user = await getCourseById(+params.id)
         if(!user) {
             return redirect('/')
         }
@@ -25,27 +25,27 @@ export async function action({request, params} : ActionFunctionArgs) {
     }
 
     if(params.id !== undefined) {
-        await updateUser(data, +params.id)
-        console.log('Datos recibidos:', data);
-        return redirect('/')
+        await updateCourse(data, +params.id)
+        console.log('Datos recibidos para actualizar:', data);
+        return redirect('/course')
     }
 
 }
 
 
-export default function EditUser() {
-    const user = useLoaderData() as UserEdit
+export default function EditCourse() {
+    const user = useLoaderData() as Course
     const error = useActionData() as string
 
     return (
         <>
             <div className='flex justify-between'>
-                <h2 className='text-4xl font-black text-slate-500'>Editar Usuario</h2>
+                <h2 className='text-4xl font-black text-slate-500'>Editar Curso</h2>
                 <Link
-                    to="/"
+                    to="/course"
                     className='rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500'
                 >
-                    Volver a Usuarios
+                    Volver a Cursos
                 </Link>
             </div>
 
@@ -56,8 +56,8 @@ export default function EditUser() {
                 method='POST'
             >
 
-                <EditUserForm
-                    userEdit={user}
+                <CourseForm
+                    course={user}
                 />
 
 
