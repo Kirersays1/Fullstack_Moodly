@@ -69,7 +69,13 @@ export default function CourseForm({ course }: CourseFormProps) {
                 </select>
             </div>
 
-            {/* Select de materias */}
+
+            Para manejar adecuadamente el caso donde materia.id_materia o materia.titulo puedan ser undefined, actualiza
+            el código como se muestra a continuación. Esto incluye una verificación explícita para garantizar que los
+            valores sean válidos antes de renderizarlos:
+
+            tsx
+            Copiar código
             <div className="mb-4">
                 <label className="text-gray-800" htmlFor="id_materia">
                     Materia:
@@ -78,18 +84,19 @@ export default function CourseForm({ course }: CourseFormProps) {
                     id="id_materia"
                     className="mt-2 block w-full p-3 bg-gray-50"
                     name="id_materia"
-                    defaultValue={course?.id_materia}
+                    defaultValue={course?.id_materia || ""}
                 >
                     <option value="">Seleccione una materia</option>
-                    {materias.map((materia) => (
-                        <option key={materia.id_materia} value={materia.id_materia.toString()}>
-                            {materia.titulo}
-                        </option>
-                    ))}
+                    {materias
+                        .filter((materia) => materia.id_materia !== undefined && materia.titulo !== undefined)
+                        .map((materia) => (
+                            <option key={materia.id_materia} value={materia.id_materia!.toString()}>
+                                {materia.titulo}
+                            </option>
+                        ))}
                 </select>
             </div>
 
-            {/* Select de materiales didácticos */}
             <div className="mb-4">
                 <label className="text-gray-800" htmlFor="id_material_didactico">
                     Material Didáctico:
@@ -98,16 +105,20 @@ export default function CourseForm({ course }: CourseFormProps) {
                     id="id_material_didactico"
                     className="mt-2 block w-full p-3 bg-gray-50"
                     name="id_material_didactico"
-                    defaultValue={course?.id_material_didactico}
+                    defaultValue={course?.id_material_didactico || ""}
                 >
                     <option value="">Seleccione un material</option>
-                    {materials.map((material) => (
-                        <option key={material.id_material_didactico} value={material.id_material_didactico.toString()}>
-                            {material.tipo}
-                        </option>
-                    ))}
+                    {materials
+                        .filter((material) => material.id_material_didactico !== undefined && material.tipo !== undefined)
+                        .map((material) => (
+                            <option key={material.id_material_didactico}
+                                    value={material.id_material_didactico!.toString()}>
+                                {material.tipo}
+                            </option>
+                        ))}
                 </select>
             </div>
+
         </>
     );
 }
