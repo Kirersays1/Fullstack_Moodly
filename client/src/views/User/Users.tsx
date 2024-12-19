@@ -1,18 +1,13 @@
-import { ActionFunctionArgs, Link, useLoaderData} from 'react-router-dom'
-import { User } from '../types';
-import {getUserById, getUsers} from "../services/UserService.ts";
-import UserDetails from "../components/UserDetails.tsx";
+import { Link, useLoaderData} from 'react-router-dom'
+import { User } from '../../types';
+import {getUsers} from "../../services/UserService.ts";
+import UserDetails from "../../components/User/UserDetails.tsx";
 
 export async function loader() {
   const users = await getUsers()
   return users
 }
 
-export async function action({request} : ActionFunctionArgs) {
-    const data = Object.fromEntries(await request.formData())
-    await getUserById(+data.id)
-    return {}
-}
 
 export default function Users() {
 
@@ -27,14 +22,6 @@ export default function Users() {
                 className='rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500'
             >
                 Agregar Usuario
-            </Link>
-
-
-            <Link
-                to="/course"
-                className='rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500'
-            >
-                Ir a cursos
             </Link>
         </div>
 

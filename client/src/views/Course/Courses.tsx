@@ -1,23 +1,19 @@
-import { ActionFunctionArgs, Link, useLoaderData } from 'react-router-dom';
-import { Course } from '../types';
-import { getCourses } from "../services/CourseService.ts";
-import CourseDetails from "../components/CourseDetails.tsx";
+import { Link, useLoaderData } from 'react-router-dom';
+import { Course } from '../../types';
+import { getCourses } from "../../services/CourseService.ts";
+import CourseDetails from "../../components/Course/CourseDetails.tsx";
+
 
 export async function loader() {
     try {
-        const courses = await getCourses(); // Llama a la API para obtener los cursos
+        const courses = await getCourses();
+
+
         console.log(courses);
         return courses || []; // Devuelve un arreglo vacío si no hay datos
     } catch (error) {
         console.error("Error cargando cursos:", error);
-        return []; // Devuelve un arreglo vacío en caso de error
     }
-}
-
-export async function action({ request }: ActionFunctionArgs) {
-    const data = Object.fromEntries(await request.formData());
-    await getCourses();
-    return {};
 }
 
 export default function Courses() {

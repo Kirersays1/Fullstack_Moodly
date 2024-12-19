@@ -1,16 +1,5 @@
-import { object, string, number, boolean,optional, Output, array } from 'valibot'
+import { object, string, number,optional, Output, array } from 'valibot'
 
-export const DraftProductSchema = object({
-    name: string(),
-    price: number()
-})
-
-export const ProductSchema = object({
-    id : number(),
-    name : string(),
-    price : number(),
-    availability : boolean()
-})
 
 export const UserSchema = object({
     id_usuario : number(),
@@ -34,13 +23,14 @@ export const DraftUserSchema = object({
 })
 
 export const MateriaSchema = object({
-    id_materia: number(),
-    titulo: string(),
+    id_materia: optional(number()),
+    titulo: optional(string()),
+    descripcion: optional(string()),
 });
 
 export const MaterialSchema = object({
-    id_material_didactico: number(),
-    tipo: string(),
+    id_material_didactico: optional(number()),
+    tipo: optional(string()),
     url : optional(string()),
 });
 
@@ -55,13 +45,12 @@ export const CourseSchema = object({
     material_tipo: string(),
     material_url: string(),
 });
+
 export const DraftCourseSchema = object({
     id_usuario: string(),
     id_materia: string(),
     id_material_didactico: string()});
 
-export const ProductsSchema = array(ProductSchema)
-export type Product = Output<typeof ProductSchema>
 
 export const UsersSchema = array(UserSchema)
 export type User = Output<typeof UserSchema>
@@ -69,3 +58,9 @@ export type UserEdit = Output<typeof UserEditSchema>
 
 export const CoursesSchema = array(CourseSchema)
 export type Course = Output<typeof CourseSchema>
+
+export const MateriasSchema = array(MateriaSchema)
+export type Materia = Output<typeof MateriaSchema>
+
+export const MaterialesSchema = array(MaterialSchema)
+export type Material = Output<typeof MaterialSchema>

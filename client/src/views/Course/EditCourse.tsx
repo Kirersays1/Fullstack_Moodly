@@ -1,8 +1,8 @@
 import { Link, Form, useActionData, ActionFunctionArgs, redirect, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
-import ErrorMessage from '../components/ErrorMessage'
-import { getUserById, updateUser } from '../services/UserService'
-import {UserEdit} from '../types'
-import {EditUserForm} from '../components/UserForm'
+import ErrorMessage from '../../components/ErrorMessage.tsx'
+import { getUserById, updateUser } from '../../services/UserService.ts'
+import {UserEdit} from '../../types'
+import {EditUserForm} from '../../components/User/UserForm.tsx'
 
 export async function loader({params} : LoaderFunctionArgs) {
     if(params.id !== undefined) {
@@ -31,10 +31,7 @@ export async function action({request, params} : ActionFunctionArgs) {
     }
 
 }
-const userOptions = [
-    { name: 'I', value: 'I'},
-    { name: 'A', value: 'A'}
-]
+
 
 export default function EditUser() {
     const user = useLoaderData() as UserEdit
@@ -63,22 +60,6 @@ export default function EditUser() {
                     userEdit={user}
                 />
 
-                <div className="mb-4">
-                    <label
-                        className="text-gray-800"
-                        htmlFor="rol"
-                    >Rol:</label>
-                    <select
-                        id="rol"
-                        className="mt-2 block w-full p-3 bg-gray-50"
-                        name="rol"
-                        defaultValue={user?.rol.toString()}
-                    >
-                        {userOptions.map(option => (
-                            <option key={option.name} value={option.value.toString()}>{option.name}</option>
-                        ))}
-                    </select>
-                </div>
 
                 <input
                     type="submit"

@@ -1,4 +1,4 @@
-import { Course } from "../types"
+import { Course } from "../../types"
 
 type CourseFormProps = {
     course?: Course

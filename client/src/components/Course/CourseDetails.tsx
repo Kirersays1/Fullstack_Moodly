@@ -1,6 +1,6 @@
 import { useNavigate, Form, ActionFunctionArgs, redirect } from 'react-router-dom';
-import { Course } from "../types";
-import { deleteCourse } from "../services/CourseService.ts";
+import { Course } from "../../types";
+import { deleteCourse } from "../../services/CourseService.ts";
 
 type CourseDetailsProps = {
     course: Course;

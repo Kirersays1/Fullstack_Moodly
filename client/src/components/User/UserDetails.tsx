@@ -1,6 +1,6 @@
 import { useNavigate, Form, ActionFunctionArgs, redirect } from 'react-router-dom'
-import { User } from "../types"
-import {deleteUser} from "../services/UserService.ts";
+import { User } from "../../types"
+import {deleteUser} from "../../services/UserService.ts";
 
 type UserDetailsProps = {
     user: User
